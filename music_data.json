@@ -1,0 +1,74 @@
+[
+    {
+        "id": 101,
+        "title": "Believer",
+        "artist": "Imagine Dragons",
+        "album": "Evolve",
+        "genre": "Rock",
+        "duration": 204,
+        "file": "believer.mp3"
+    },
+    {
+        "id": 102,
+        "title": "Perfect",
+        "artist": "Ed Sheeran",
+        "album": "Divide",
+        "genre": "Pop",
+        "duration": 263,
+        "file": "perfect.mp3"
+    },
+    {
+        "id": 103,
+        "title": "Shape of You",
+        "artist": "Ed Sheeran",
+        "album": "Divide",
+        "genre": "Pop",
+        "duration": 234,
+        "file": "shape_of_you.mp3"
+    },
+    {
+        "id": 104,
+        "title": "Counting Stars",
+        "artist": "OneRepublic",
+        "album": "Native",
+        "genre": "Pop Rock",
+        "duration": 257,
+        "file": "counting_stars.mp3"
+    },
+    {
+        "id": 105,
+        "title": "Blinding Lights",
+        "artist": "The Weeknd",
+        "album": "After Hours",
+        "genre": "Synth-pop",
+        "duration": 200,
+        "file": "blinding_lights.mp3"
+    },
+    {
+        "id": 106,
+        "title": "Radioactive",
+        "artist": "Imagine Dragons",
+        "album": "Night Visions",
+        "genre": "Rock",
+        "duration": 187,
+        "file": "radioactive.mp3"
+    },
+    {
+        "id": 107,
+        "title": "Photograph",
+        "artist": "Ed Sheeran",
+        "album": "X",
+        "genre": "Pop",
+        "duration": 258,
+        "file": "photograph.mp3"
+    },
+    {
+        "id": 108,
+        "title": "Levitating",
+        "artist": "Dua Lipa",
+        "album": "Future Nostalgia",
+        "genre": "Disco Pop",
+        "duration": 203,
+        "file": "levitating.mp3"
+    }
+]
