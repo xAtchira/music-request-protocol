@@ -1,20 +1,3 @@
-"""
-client.py
-
-Music Request Client - interactive TCP client implementing MRP
-(Music Request Protocol).
-
-Responsibilities:
-    - connect to the server
-    - show a menu and collect user input
-    - build MRP request strings using protocol.py
-    - send requests, receive responses
-    - display status code / phrase and data to the user
-    - handle DOWNLOAD (receive binary file data, show progress, save to disk)
-    - log every request/response sent/received to the terminal for demo purposes
-    - handle connection errors and bad user input gracefully (never crash)
-"""
-
 import socket
 import os
 
@@ -42,11 +25,6 @@ class ServerDisconnected(Exception):
 # Low-level socket helpers (mirror server.py's line-buffering logic)
 # ---------------------------------------------------------------------------
 class MRPConnection:
-    """
-    Wraps a TCP socket and keeps a leftover-bytes buffer so we can read
-    '\\r\\n'-terminated lines and, separately, raw binary chunks (for
-    DOWNLOAD) from the same underlying byte stream.
-    """
 
     def __init__(self, sock):
         self.sock = sock
@@ -116,15 +94,7 @@ def log_response(status_line, data_lines=None):
 # Response reading helpers
 # ---------------------------------------------------------------------------
 def read_simple_response(conn, expected_data_lines=0, count_prefixed=False):
-    """
-    Read a status line, then a fixed or COUNT-driven number of data lines.
 
-    If count_prefixed is True, the first data line is expected to look like
-    "COUNT n" and we then read n additional lines.
-    Otherwise we read exactly `expected_data_lines` lines (0 is fine).
-
-    Returns (status_line, list_of_data_lines).
-    """
     status_line = conn.recv_line()
     data_lines = []
 

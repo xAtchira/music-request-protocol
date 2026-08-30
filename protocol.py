@@ -1,18 +1,3 @@
-"""
-protocol.py
-
-Application-Layer Protocol Logic for MRP (Music Request Protocol).
-
-This module intentionally contains NO socket code. It only knows how to:
-    - define the commands and status codes of MRP
-    - parse a raw request line into (command, parameter)
-    - build a properly formatted response string
-
-Keeping this separate from server.py / client.py makes it clear that
-MRP is an independent Application-Layer protocol, not something baked
-into the transport code.
-"""
-
 # ---------------------------------------------------------------------------
 # Line terminator used by MRP for every request line and response line
 # ---------------------------------------------------------------------------
@@ -49,10 +34,10 @@ class ParsedRequest:
     """Simple container for a parsed MRP request."""
 
     def __init__(self, command, parameter, raw_text, is_valid=True, error_message=""):
-        self.command = command            # e.g. "SEARCH" (always uppercase, or None if invalid)
-        self.parameter = parameter        # e.g. "Believer" (may be "" if not provided)
-        self.raw_text = raw_text          # original line, for logging
-        self.is_valid = is_valid          # False if the line could not be parsed at all
+        self.command = command
+        self.parameter = parameter
+        self.raw_text = raw_text
+        self.is_valid = is_valid
         self.error_message = error_message
 
     def __repr__(self):
@@ -60,19 +45,7 @@ class ParsedRequest:
 
 
 def parse_request(raw_line):
-    """
-    Parse a single raw request line (without the trailing \\r\\n) into a
-    ParsedRequest object.
 
-    Grammar:
-        <COMMAND> [PARAMETER]
-
-    Rules:
-        - Empty line               -> invalid request
-        - Command is always the first whitespace-separated token
-        - Everything after the first token (trimmed) is the parameter
-          (this allows SEARCH keywords with spaces, e.g. "SEARCH Ed Sheeran")
-    """
     if raw_line is None:
         return ParsedRequest(None, "", "", is_valid=False, error_message="Empty request")
 
@@ -94,14 +67,7 @@ def build_status_line(status):
 
 
 def build_response(status, data_lines=None):
-    """
-    Build a full MRP response string.
 
-    status: one of the STATUS_* constants (e.g. STATUS_OK)
-    data_lines: optional list of strings, each becomes its own line
-
-    Returns a single string ready to be encoded and sent over the socket.
-    """
     response = build_status_line(status)
     if data_lines:
         for line in data_lines:

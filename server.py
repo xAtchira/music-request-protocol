@@ -1,20 +1,3 @@
-"""
-server.py
-
-Music Request Server - TCP server implementing the MRP (Music Request
-Protocol) application-layer protocol.
-
-Responsibilities:
-    - open a TCP socket, bind, listen, accept clients
-    - spawn one thread per connected client
-    - read request lines terminated by \\r\\n
-    - parse requests using protocol.py
-    - look up song metadata from music_data.json
-    - send back MRP responses
-    - stream binary file data for DOWNLOAD requests
-    - log every request/response to the terminal for demo purposes
-"""
-
 import socket
 import threading
 import json
@@ -35,8 +18,7 @@ MUSIC_DIR = os.path.join(BASE_DIR, "music")
 RECV_BUFFER = 4096          # bytes read at a time while parsing request lines
 FILE_SEND_CHUNK = 8192      # bytes per chunk while streaming a file
 
-# Lock to protect console output ordering when multiple client threads log
-# at the same time. Purely cosmetic - does not affect protocol correctness.
+
 print_lock = threading.Lock()
 
 
@@ -52,10 +34,6 @@ def log(message):
 def load_music_data():
     """
     Load the song catalog from music_data.json.
-
-    Returns a list of song dicts. If the file is missing or invalid,
-    returns an empty list and logs the problem (server keeps running,
-    but every request will report NOT FOUND).
     """
     try:
         with open(MUSIC_DATA_FILE, "r", encoding="utf-8") as f:
@@ -93,15 +71,7 @@ def search_songs(songs, keyword):
 # Socket-level helpers
 # ---------------------------------------------------------------------------
 def recv_line(conn, buffer):
-    """
-    Read a single '\\r\\n'-terminated line from the socket, using `buffer`
-    as leftover bytes from a previous read (since TCP is a byte stream and
-    a request might arrive split across multiple recv() calls, or multiple
-    requests might arrive in a single recv() call).
 
-    Returns (line_str_or_None, updated_buffer).
-    line is None if the client disconnected before sending a full line.
-    """
     while b"\r\n" not in buffer:
         chunk = conn.recv(RECV_BUFFER)
         if not chunk:
@@ -169,14 +139,7 @@ def handle_info(songs, param):
 
 
 def handle_download(conn, songs, param):
-    """
-    Handles DOWNLOAD. Unlike the other handlers, this one needs direct
-    socket access because on success it must stream binary file bytes
-    *after* sending the text response header.
 
-    Returns the text response that was sent (for logging purposes only;
-    the binary payload is streamed separately and not logged in full).
-    """
     if param == "":
         response = protocol.build_response(
             protocol.STATUS_BAD_REQUEST, ["Missing Song ID"]
