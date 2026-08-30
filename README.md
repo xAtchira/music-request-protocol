@@ -1,7 +1,7 @@
 # 🎵 Music Request Server
 
 - [ดาวน์โหลดเอกสาร (PDF)](./6710451534_MRP.pdf)
-- [ลิงค์ Video](https://youtube.com)
+- [ลิงค์ Video](https://youtu.be/UbsNdUKN00M)
 
 โปรแกรม **Network Application** สำหรับให้ผู้ใช้งานสามารถติดต่อกับ **Music Server** ผ่านเครือข่าย เพื่อเรียกดู ค้นหา ดูรายละเอียด และดาวน์โหลดไฟล์เพลงจาก Server
 
